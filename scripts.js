@@ -9,15 +9,15 @@ btn.addEventListener("click", function() {
     let input = document.getElementById("input").value;
     word.innerHTML=input;
     console.log(input);
-    fetch(`https://owlbot.info/api/v3/dictionary/${input}`,{headers:{'Authorization':'Token 94c5b78ce14a2d373e9c108d8c3d5520df087d7c'}})
+    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${input}`)
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            data.definitions.forEach(def => {
+            data[0].meanings.forEach(mean => {
                 desc.innerHTML += 
                 `<li>
-                    <p id="wordtype">${def.type}</p>
-                    <p id="def">${def.definition}</p>
+                    <p id="wordtype">${mean.partOfSpeech}</p>
+                    <p id="def">${mean.definitions[0].definition}</p>
                 </li>`                
             });                     
         })
